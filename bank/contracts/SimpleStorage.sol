@@ -57,14 +57,14 @@ contract ERC20 {
 contract bank is ERC20,Ownable{
 
     string public constant name = "ReaChainCoin";
-	string public constant symbol = "RCC";
-	uint8 public constant decimals = 18;
-	uint256 public totalsupply;
-	uint256 public _id;
-	uint256 public WAITTIMEUNTILWITHDRAWORTRANSFER;
+    string public constant symbol = "RCC";
+    uint8 public constant decimals = 18;
+    uint256 public totalsupply;
+    uint256 public _id;
+    uint256 public WAITTIMEUNTILWITHDRAWORTRANSFER;
 
-		mapping(address => uint256) contributionTime;
-	  struct Content //项目所需资料
+    mapping(address => uint256) contributionTime;
+    struct Content //项目所需资料
     {
         uint256 _id;
         string _introduce;
@@ -75,8 +75,8 @@ contract bank is ERC20,Ownable{
     }
     Content[] public contents;
     address[] public partner;
-	mapping(address => uint256) public balances;
-	mapping(address => mapping(address => uint256)) public allowed;
+    mapping(address => uint256) public balances;
+    mapping(address => mapping(address => uint256)) public allowed;
 
     mapping (address => uint256) public amount;
     mapping (address => bool) public release;
@@ -140,16 +140,16 @@ contract bank is ERC20,Ownable{
 
     function totalSupply() constant public returns(uint){//查看代币总数量
         return totalsupply;
- }
+    }
 
- function balanceOf(address _owner) constant public returns(uint){
-  return balances[_owner];
- }
+   function balanceOf(address _owner) constant public returns(uint){
+    return balances[_owner];
+   }
 
  // don't allow transfers before the required wait-time
  // and don't allow transfers to this contract addr, it'll just kill tokens
- function transfer(address _to, uint256 _value) public returns (bool success){
-  require(balances[msg.sender] >= _value
+  function transfer(address _to, uint256 _value) public returns (bool success){
+   require(balances[msg.sender] >= _value
    && contributionTime[msg.sender] + WAITTIMEUNTILWITHDRAWORTRANSFER <= block.timestamp
    && _to != address(this)
    && _to != address(0));
